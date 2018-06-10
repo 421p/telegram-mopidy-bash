@@ -1,4 +1,7 @@
 ## Proof of Concept
+
+[![Join the chat at https://gitter.im/telegram-mopidy-bash/Lobby](https://badges.gitter.im/telegram-mopidy-bash/Lobby.svg)](https://gitter.im/telegram-mopidy-bash/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 First of all, this project is a proof of concept that proves usability of Bash scripting language in a modern environment. It works but it still far from being a perfect app.
 
 ## Features
