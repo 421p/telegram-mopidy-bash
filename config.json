@@ -1,0 +1,28 @@
+{
+  "telegram_token": "your_token",
+  "mopidy_uri": "http://localhost:6680/mopidy/rpc",
+  "allowed_users": [
+    268253251,
+    210226868,
+    125204451
+  ],
+  "reply_markup": {
+    "keyboard": [
+      [
+        "🏨 Priton",
+        "🌌 Dark Sun",
+        "🏭 Utulek"
+      ],
+      [
+        "🚇 Prague",
+        "💃 Neuromonk",
+        "☔️Depression"
+      ],
+      [
+        "🔈 Volume 20",
+        "🔉 Volume 60",
+        "🔊 Volume 100"
+      ]
+    ]
+  }
+}
