@@ -8,17 +8,17 @@ class:Library() {
 
     public string mopidyUri
 
+    private Storage storage
+
     function Library.getTrackUri() {
         [string] albumName
         [string] trackName
 
         local key="$albumName:$trackName"
 
-        Storage storage
+        this storage createIfNotExist
 
-        $var:storage createIfNotExist
-
-        if [ $($var:storage isAlreadyAdded "$key") == 0 ]; then
+        if [ $(this storage isAlreadyAdded "$key") == 0 ]; then
             map parameters
             map query
 
@@ -31,12 +31,12 @@ class:Library() {
             local uri=$(Request post $(this mopidyUri) "core.library.search" "$($var:parameters toJson)" \
             | jq "first(.result[0].tracks[] | select(.name == \"$trackName\").uri)")
 
-            $var:storage addTrack "$key" "$uri"
+            this storage addTrack "$key" "$uri"
 
             @return:value "$uri"
 
         else
-            @return:value $($var:storage getTrack "$key")
+            @return:value $(this storage getTrack "$key")
         fi
     }
 }

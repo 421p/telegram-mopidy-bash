@@ -81,7 +81,7 @@ class:CommandStorage() {
             log "Volume command activated."
 
             local vol=${BASH_REMATCH[1]}
-            this player mixer setVolume ${vol} } > /dev/null
+            this player mixer setVolume ${vol} } > /dev/null &
 
             echo "Current volume: $vol"
 
@@ -92,6 +92,22 @@ class:CommandStorage() {
         if [[ "$commandName" =~ ${cmd} ]]; then
             echo "Hi there."
 
+            return
+        fi
+
+        local cmd="Play"
+        if [[ "$commandName" =~ ${cmd} ]]; then
+            this player playback play > /dev/null &
+
+            echo 0
+            return
+        fi
+
+        local cmd="Pause"
+        if [[ "$commandName" =~ ${cmd} ]]; then
+            this player playback pause > /dev/null &
+
+            echo 0
             return
         fi
 

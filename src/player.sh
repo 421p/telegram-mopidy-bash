@@ -16,8 +16,8 @@ class:Player() {
 
     private Tracklist list
     private Library lib
-    private Playback playback
 
+    public Playback playback
     public Mixer mixer
 
     function Player.init() {
@@ -35,16 +35,18 @@ class:Player() {
 
         log "Clearing playlist.."
 
-        this list clear > /dev/null
+        this list clear > /dev/null &
 
         log "Adding song $name from album $album"
 
-        log "$(this list add $(this lib getTrackUri "$album" "$name") | jq '.')"
+        log "$(this list add $(this lib getTrackUri "$album" "$name") | jq '.')" &
+
+        wait
 
         this list enableSingle | jq '.' > /dev/null &
         this list enableRepeat | jq '.' > /dev/null &
 
-        this playback play > /dev/null
+        this playback play > /dev/null &
     }
 }
 

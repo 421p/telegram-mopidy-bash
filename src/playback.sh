@@ -8,12 +8,11 @@ class:Playback() {
     public string mopidyUri
 
     function Playback.play() {
-        map pp
+        Request post $(this mopidyUri) "core.playback.play" '{ "tlid": null, "tl_track": null }'
+    }
 
-        pp["tlid"]=null
-        pp["tl_track"]=null
-
-        Request post $(this mopidyUri) "core.playback.play" "$($var:pp toJson)"
+    function Playback.pause() {
+        Request post $(this mopidyUri) "core.playback.pause" '{}'
     }
 }
 

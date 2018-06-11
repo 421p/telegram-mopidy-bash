@@ -10,11 +10,7 @@ class:Mixer() {
     function Mixer.setVolume() {
         [integer] volume
 
-        map pp
-
-        pp["volume"]=${volume}
-
-        Request post $(this mopidyUri) "core.mixer.set_volume" "$($var:pp toJson)"
+        Request post $(this mopidyUri) "core.mixer.set_volume" "{\"volume\": $volume}"
     }
 }
 

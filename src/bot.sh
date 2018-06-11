@@ -33,8 +33,12 @@ class:Bot() {
 
             local response=$(this poll)
 
+            log 'got update'
+
             if [ ! -z "${response}" ]; then
                 for encodedUpdate in ${response}; do
+
+                    log 'processing json'
 
                     update=$(base64 -d <<< ${encodedUpdate})
 
@@ -44,7 +48,9 @@ class:Bot() {
                     userId=$(jq '.message.from.id' <<< ${update})
                     chatId=$(jq '.message.chat.id' <<< ${update})
 
-                    this handleUpdate ${userId} ${chatId} "$firstName" "$messageText"
+                    log 'handling update'
+
+                    this handleUpdate ${userId} ${chatId} "$firstName" "$messageText" &
 
                     this offset = $(($updateId + 1))
                 done
@@ -67,18 +73,22 @@ class:Bot() {
         if [ "$isAllowed" == "true" ]; then
             local text="$(this commands execute "${text}")"
 
+            log "Command executed with a result: $text"
+
             if [ "$text" != 0 ]; then
-                this sendMessage ${chatId} "${text}"
+                this sendMessage ${chatId} "${text}" &
             fi
         else
             log "$firstName ($userId) is not allowed to execute commands."
-            this sendMessage ${chatId} "🚫 You are not a member of Priton community. 🚫"
+            this sendMessage ${chatId} "🚫 You are not a member of Priton community. 🚫" &
         fi
     }
 
     function Bot.sendMessage() {
         [integer] chatId
         [string] text
+
+        log "Preparing to send message to $chatId"
 
         local response=$(curl -sX POST \
             https://api.telegram.org/bot$(this token)/sendMessage \
