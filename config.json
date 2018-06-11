@@ -21,7 +21,9 @@
       [
         "🔈 Volume 20",
         "🔉 Volume 60",
-        "🔊 Volume 100"
+        "🔊 Volume 100",
+        "▶️Play",
+        "⏸️Pause"
       ]
     ]
   }
